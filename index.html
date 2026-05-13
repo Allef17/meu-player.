@@ -67,6 +67,7 @@ body{
   width:100%;
   height:100vh;
   background:#000;
+  position:relative;
 }
 
 video{
@@ -118,7 +119,7 @@ video{
   top:50%;
   left:50%;
   transform:translate(-50%,-50%);
-  z-index:40;
+  z-index:9999;
 
   display:flex;
   align-items:center;
@@ -335,20 +336,31 @@ const body = document.body;
 const playBtn = document.getElementById('playBtn');
 const rewindBtn = document.getElementById('rewindBtn');
 const forwardBtn = document.getElementById('forwardBtn');
+const centerControls = document.getElementById('centerControls');
 
 let hideTimeout;
 
-/* PLAY */
+/* PLAY / PAUSE */
+
+function updatePlayIcon(){
+
+  if(player.playing){
+    playBtn.innerHTML = '❚❚';
+  }else{
+    playBtn.innerHTML = '▶';
+  }
+
+}
 
 playBtn.addEventListener('click',()=>{
 
   if(player.playing){
     player.pause();
-    playBtn.innerHTML = '▶';
   }else{
     player.play();
-    playBtn.innerHTML = '❚❚';
   }
+
+  updatePlayIcon();
 
 });
 
@@ -357,6 +369,7 @@ playBtn.addEventListener('click',()=>{
 forwardBtn.addEventListener('click',()=>{
 
   player.currentTime += 10;
+  showUI();
 
 });
 
@@ -365,10 +378,11 @@ forwardBtn.addEventListener('click',()=>{
 rewindBtn.addEventListener('click',()=>{
 
   player.currentTime -= 10;
+  showUI();
 
 });
 
-/* MOSTRAR UI */
+/* MOSTRAR CONTROLES */
 
 function showUI(){
 
@@ -379,38 +393,57 @@ function showUI(){
   hideTimeout = setTimeout(()=>{
 
     if(player.playing){
+
       body.classList.add('hide-ui');
+
     }
 
   },3000);
 
 }
 
-/* DETECTAR MOVIMENTO */
+/* MOUSE E TOQUE */
 
 document.addEventListener('mousemove',showUI);
 document.addEventListener('touchstart',showUI);
 document.addEventListener('click',showUI);
 
-/* INICIAR */
-
-showUI();
-
 /* EVENTOS PLAYER */
 
 player.on('play',()=>{
 
-  playBtn.innerHTML = '❚❚';
+  updatePlayIcon();
   showUI();
 
 });
 
 player.on('pause',()=>{
 
-  playBtn.innerHTML = '▶';
+  updatePlayIcon();
   body.classList.remove('hide-ui');
 
 });
+
+/* FULLSCREEN */
+
+player.on('enterfullscreen',()=>{
+
+  centerControls.style.zIndex = '9999';
+  showUI();
+
+});
+
+player.on('exitfullscreen',()=>{
+
+  centerControls.style.zIndex = '9999';
+  showUI();
+
+});
+
+/* INICIAR */
+
+updatePlayIcon();
+showUI();
 
 </script>
 
