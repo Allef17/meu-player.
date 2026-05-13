@@ -127,14 +127,13 @@ video{
   transition:opacity .3s ease;
 }
 
-/* BOTÕES 10s */
+/* BOTÕES */
 
 .circle-btn{
   width:90px;
   height:90px;
   border:none;
   background:transparent;
-  color:white;
   cursor:pointer;
 
   display:flex;
@@ -148,23 +147,16 @@ video{
   transform:scale(1.08);
 }
 
-.icon-wrapper{
-  position:relative;
-  font-size:65px;
-  line-height:1;
-  color:white;
+.netflix-icon{
+  width:80px;
+  height:80px;
 }
 
-.icon-wrapper span{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  font-size:18px;
-  font-weight:bold;
+.netflix-icon text{
+  font-family:Arial, sans-serif;
 }
 
-/* PLAY CENTRAL */
+/* PLAY */
 
 .play-circle-btn{
   width:110px;
@@ -208,12 +200,9 @@ video{
     height:65px;
   }
 
-  .icon-wrapper{
-    font-size:48px;
-  }
-
-  .icon-wrapper span{
-    font-size:14px;
+  .netflix-icon{
+    width:58px;
+    height:58px;
   }
 
   .play-circle-btn{
@@ -238,7 +227,7 @@ video{
 <div class="player-container">
 
   <video id="player" playsinline>
-    <source src="https://www-fontedecanais-me.58ioec50wtok71.com/movies/23/199756.mp4?username=wowserver-vods&token=C1EQAgcOWlBaW0dLUlheU0tSR04FAAEZBAoVD0lWUgQLHBkOChwOHl0FCw8ZSVRIBg0ILAcEBAUdCR8FHx0XSVBJS1pbTlxRBgoEDw8DDxgYUV5ZWUVJXUdOExwKHw8FDDUCCFJJUl9SXk9YFg%3D%3D" type="video/mp4"/>
+    <source src="https://www-fontedecanais-me.58ioec50wtok71.com/movies/23/199756.mp4?username=wowserver-vods&token=C1EQAgcOWlBaW0dLUlhcXk5aR04FAAEZBAoVD0lWUgQLHBkOChwOHl0FCw8ZSVRIBg0ILAcEBAUdCR8FHx0XSVBJS1pbTlxRBgoEDw8DDxgYUV5ZXkVMWEdOExwKHw8FDDUCCFJJUl9SXk9YFg%3D%3D" type="video/mp4"/>
   </video>
 
   <!-- CONTROLES CENTRAIS -->
@@ -247,10 +236,35 @@ video{
 
     <!-- VOLTAR -->
     <button class="circle-btn" id="rewindBtn">
-      <div class="icon-wrapper">
-        ↺
-        <span>10</span>
-      </div>
+
+      <svg viewBox="0 0 100 100" class="netflix-icon">
+
+        <path d="
+          M50 15
+          A35 35 0 1 0 85 50
+        "
+        fill="none"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="round"/>
+
+        <polyline points="38,12 50,15 45,27"
+          fill="none"
+          stroke="white"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+        <text x="50" y="60"
+          text-anchor="middle"
+          fill="white"
+          font-size="24"
+          font-weight="bold">
+          10
+        </text>
+
+      </svg>
+
     </button>
 
     <!-- PLAY -->
@@ -260,10 +274,35 @@ video{
 
     <!-- AVANÇAR -->
     <button class="circle-btn" id="forwardBtn">
-      <div class="icon-wrapper">
-        ↻
-        <span>10</span>
-      </div>
+
+      <svg viewBox="0 0 100 100" class="netflix-icon">
+
+        <path d="
+          M50 15
+          A35 35 0 1 1 15 50
+        "
+        fill="none"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="round"/>
+
+        <polyline points="62,12 50,15 55,27"
+          fill="none"
+          stroke="white"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"/>
+
+        <text x="50" y="60"
+          text-anchor="middle"
+          fill="white"
+          font-size="24"
+          font-weight="bold">
+          10
+        </text>
+
+      </svg>
+
     </button>
 
   </div>
