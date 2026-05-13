@@ -1,74 +1,182 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Meu Player</title>
+<title>TVPlay Player</title>
 
-<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
 
 <style>
-:root {
-  --plyr-color-main: #ff0000;
+:root{
+  --plyr-color-main:#e50914;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
 
-.player-container {
-  width: 100%;
-  height: 100vh;
-  background: black;
+html,body{
+  width:100%;
+  height:100%;
+  background:#000;
+  overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
-video {
-  width: 100%;
-  height: 100%;
+body{
+  position:relative;
 }
 
-.plyr {
-  height: 100%;
+/* Topo */
+.top-bar{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  padding:20px;
+  z-index:20;
+
+  background:linear-gradient(to bottom,
+  rgba(0,0,0,0.9),
+  transparent);
+
+  display:flex;
+  align-items:center;
 }
 
-.plyr--video {
-  background: black;
+.logo{
+  color:#e50914;
+  font-size:32px;
+  font-weight:bold;
+  letter-spacing:1px;
 }
 
-.plyr__control--overlaid {
-  background: rgba(255, 0, 0, 0.9);
+/* Marca d'água TVPlay */
+.watermark{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  
+  font-size:70px;
+  font-weight:bold;
+  color:rgba(255,255,255,0.12);
+
+  z-index:15;
+  pointer-events:none;
+
+  text-shadow:0 0 20px rgba(0,0,0,0.5);
+
+  transition:opacity .5s ease;
 }
 
-.plyr__control:hover {
-  background: red !important;
+/* Player */
+.player-container{
+  width:100%;
+  height:100vh;
+  background:#000;
 }
 
-.plyr__progress__buffer {
-  color: rgba(255, 0, 0, 0.3);
+video{
+  width:100%;
+  height:100%;
+}
+
+.plyr{
+  height:100%;
+}
+
+.plyr--video{
+  background:#000;
+}
+
+/* Barra vermelha */
+.plyr--full-ui input[type=range]{
+  color:#e50914;
+}
+
+/* Play central */
+.plyr__control--overlaid{
+  background:rgba(229,9,20,.9);
+  padding:20px;
+}
+
+/* Hover */
+.plyr__control:hover{
+  background:#e50914 !important;
+}
+
+/* Controles */
+.plyr__controls{
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,.9),
+    rgba(0,0,0,.4),
+    transparent
+  ) !important;
+
+  padding:20px !important;
+}
+
+/* Texto */
+.plyr{
+  color:white;
+}
+
+/* Buffer */
+.plyr__progress__buffer{
+  color:rgba(255,255,255,.25);
+}
+
+/* Mobile */
+@media(max-width:768px){
+
+  .logo{
+    font-size:24px;
+  }
+
+  .watermark{
+    font-size:45px;
+  }
+
+  .plyr__controls{
+    padding:10px !important;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
+<div class="top-bar">
+  <div class="logo">TVPlay</div>
+</div>
+
+<div class="watermark" id="watermark">
+  TVPlay
+</div>
+
 <div class="player-container">
+
   <video id="player" playsinline controls>
-    <source src="https://www-fontedecanais-me.58ioec50wtok71.com/movies/23/199756.mp4?username=wowserver-vods&token=C1EQAgcOWlBaW0dLUlhYXU5eR04FAAEZBAoVD0lWUgQLHBkOChwOHl0FCw8ZSVRIBg0ILAcEBAUdCR8FHx0XSVBJS1pbTlxRBgoEDw8DDxgYUV5ZW0VMWEdOExwKHw8FDDUCCFJJUl9SXk9YFg%3D%3D" type="video/mp4" />
+    <source src="https://www-fontedecanais-me.58ioec50wtok71.com/movies/23/199756.mp4?username=wowserver-vods&token=C1EQAgcOWlBaW0dLUlhYXU5eR04FAAEZBAoVD0lWUgQLHBkOChwOHl0FCw8ZSVRIBg0ILAcEBAUdCR8FHx0XSVBJS1pbTlxRBgoEDw8DDxgYUV5ZW0VMWEdOExwKHw8FDDUCCFJJUl9SXk9YFg%3D%3D" type="video/mp4"/>
   </video>
+
 </div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
 
 <script>
-const player = new Plyr('#player', {
-  controls: [
+const player = new Plyr('#player',{
+
+  seekTime:10,
+
+  controls:[
     'play-large',
     'rewind',
     'play',
@@ -82,14 +190,20 @@ const player = new Plyr('#player', {
     'fullscreen'
   ],
 
-  seekTime: 10,
+  settings:[
+    'speed'
+  ],
 
-  settings: ['quality', 'speed'],
-
-  tooltips: {
-    controls: true,
-    seek: true
+  tooltips:{
+    controls:true,
+    seek:true
   }
+
+});
+
+/* Mostrar marca d'água ao iniciar */
+player.on('play', () => {
+  document.getElementById('watermark').style.opacity = '1';
 });
 </script>
 
