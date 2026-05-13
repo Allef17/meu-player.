@@ -33,7 +33,6 @@ body{
 }
 
 /* TOPO */
-
 .top-bar{
   position:absolute;
   top:0;
@@ -42,17 +41,11 @@ body{
   padding:20px;
   z-index:20;
 
-  background:linear-gradient(
-    to bottom,
-    rgba(0,0,0,.9),
-    transparent
-  );
+  background:linear-gradient(to bottom, rgba(0,0,0,.9), transparent);
 
   display:flex;
   justify-content:flex-end;
   align-items:center;
-
-  transition:.3s;
 }
 
 .logo{
@@ -63,7 +56,6 @@ body{
 }
 
 /* PLAYER */
-
 .player-container{
   width:100%;
   height:100vh;
@@ -76,7 +68,6 @@ video{
 }
 
 /* PLYR */
-
 .plyr{
   height:100%;
   color:white;
@@ -90,46 +81,18 @@ video{
   color:#e50914;
 }
 
-/* PLAY CENTRAL */
+/* CONTROLES */
+.plyr__controls{
+  background:linear-gradient(to top, rgba(0,0,0,.95), rgba(0,0,0,.4), transparent) !important;
+  padding:20px !important;
+}
 
 .plyr__control--overlaid{
   background:rgba(229,9,20,.95);
   padding:22px;
 }
 
-.plyr__control--overlaid:hover{
-  background:#ff1f1f !important;
-}
-
-/* BOTÕES */
-
-.plyr__control:hover{
-  background:#e50914 !important;
-}
-
-/* BARRA INFERIOR */
-
-.plyr__controls{
-  background:linear-gradient(
-    to top,
-    rgba(0,0,0,.95),
-    rgba(0,0,0,.4),
-    transparent
-  ) !important;
-
-  padding:20px !important;
-
-  transition:.3s;
-}
-
-/* BUFFER */
-
-.plyr__progress__buffer{
-  color:rgba(255,255,255,.25);
-}
-
-/* ESCONDER UI */
-
+/* UI OCULTA */
 .hide-ui .top-bar,
 .hide-ui .plyr__controls{
   opacity:0;
@@ -137,17 +100,10 @@ video{
 }
 
 /* MOBILE */
-
 @media(max-width:768px){
-
   .logo{
     font-size:18px;
   }
-
-  .plyr__controls{
-    padding:10px !important;
-  }
-
 }
 
 </style>
@@ -161,9 +117,7 @@ video{
 
 <div class="player-container">
 
-  <video id="player" playsinline controls>
-    <source src="https://www-fontedecanais-me.58ioec50wtok71.com/movies/22/202588.mp4?username=wowserver-vods&token=C1EQAgcOWlBaW0dLUlxTWU9cR04FAAEZBAoVD0lWUgQLHBkOChwOHl0FCw8ZSVRIBg0ILAcEBAUdCR8FHx0XSVBJS1pbTlxRBgoEDw8DDxgYUV5eRFNMRkkPHx0QDgQfJwMPTkpFUF1bW04X" type="video/mp4"/>
-  </video>
+  <video id="player" playsinline controls></video>
 
 </div>
 
@@ -171,11 +125,14 @@ video{
 
 <script>
 
-const player = new Plyr('#player',{
+// PEGAR URL DO FILME
+const params = new URLSearchParams(window.location.search);
+const videoUrl = params.get("url");
 
-  seekTime:10,
-
-  controls:[
+// INICIAR PLAYER
+const player = new Plyr('#player', {
+  seekTime: 10,
+  controls: [
     'play-large',
     'rewind',
     'play',
@@ -188,54 +145,41 @@ const player = new Plyr('#player',{
     'settings',
     'fullscreen'
   ],
-
-  settings:[
-    'speed'
-  ],
-
-  tooltips:{
-    controls:true,
-    seek:true
-  }
-
+  settings: ['speed']
 });
 
-const body = document.body;
+// DEFINIR VÍDEO DINAMICAMENTE
+if (videoUrl) {
+  const video = document.getElementById("player");
+  video.src = videoUrl;
+  video.load();
+}
 
+// UI AUTO HIDE
+const body = document.body;
 let hideTimeout;
 
-/* MOSTRAR UI */
-
 function showUI(){
-
   body.classList.remove('hide-ui');
 
   clearTimeout(hideTimeout);
 
   hideTimeout = setTimeout(()=>{
-
     if(player.playing){
       body.classList.add('hide-ui');
     }
-
   },3000);
-
 }
-
-/* EVENTOS */
 
 document.addEventListener('mousemove',showUI);
 document.addEventListener('touchstart',showUI);
 document.addEventListener('click',showUI);
 
 player.on('play',showUI);
+
 player.on('pause',()=>{
-
   body.classList.remove('hide-ui');
-
 });
-
-/* INICIAR */
 
 showUI();
 
