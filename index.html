@@ -122,6 +122,8 @@ video{
 
   display:flex;
   align-items:center;
+  justify-content:center;
+
   gap:90px;
 
   transition:opacity .3s ease;
@@ -132,8 +134,10 @@ video{
 .circle-btn{
   width:90px;
   height:90px;
+
   border:none;
   background:transparent;
+
   cursor:pointer;
 
   display:flex;
@@ -161,6 +165,10 @@ video{
 
   cursor:pointer;
 
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
   transition:.2s;
 }
 
@@ -169,10 +177,9 @@ video{
   color:#e50914;
 }
 
-/* ÍCONES CUSTOM */
+/* ÍCONES */
 
 .custom-icon{
-  position:relative;
   width:75px;
   height:75px;
 
@@ -184,33 +191,14 @@ video{
 .custom-icon svg{
   width:75px;
   height:75px;
+
+  fill:white;
 }
 
 /* VOLTAR */
 
 .reverse{
   transform:scaleX(-1);
-}
-
-/* TEXTO 10 */
-
-.custom-icon span{
-  position:absolute;
-
-  top:50%;
-  left:50%;
-
-  transform:translate(-50%,-50%);
-
-  color:white;
-  font-size:18px;
-  font-weight:bold;
-}
-
-/* CORRIGIR TEXTO ESPELHADO */
-
-.reverse span{
-  transform:translate(-50%,-50%) scaleX(-1);
 }
 
 /* ESCONDER UI */
@@ -245,11 +233,9 @@ video{
     height:55px;
   }
 
-  .custom-icon span{
-    font-size:14px;
-  }
-
   .play-circle-btn{
+    width:80px;
+    height:80px;
     font-size:70px;
   }
 
@@ -284,14 +270,11 @@ video{
       <div class="custom-icon reverse">
 
         <svg xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 -960 960 960"
-          fill="white">
+          viewBox="0 -960 960 960">
 
           <path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z"/>
 
         </svg>
-
-        <span>10</span>
 
       </div>
 
@@ -308,14 +291,11 @@ video{
       <div class="custom-icon">
 
         <svg xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 -960 960 960"
-          fill="white">
+          viewBox="0 -960 960 960">
 
           <path d="M383-480 200-664l56-56 240 240-240 240-56-56 183-184Zm264 0L464-664l56-56 240 240-240 240-56-56 183-184Z"/>
 
         </svg>
-
-        <span>10</span>
 
       </div>
 
