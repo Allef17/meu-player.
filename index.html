@@ -3,30 +3,95 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Meu Player</title>
 
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+
 <style>
-body{
-margin:0;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+:root {
+  --plyr-color-main: #ff0000;
 }
 
-video{
-width:100%;
-max-width:1000px;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.player-container {
+  width: 100%;
+  height: 100vh;
+  background: black;
+}
+
+video {
+  width: 100%;
+  height: 100%;
+}
+
+.plyr {
+  height: 100%;
+}
+
+.plyr--video {
+  background: black;
+}
+
+.plyr__control--overlaid {
+  background: rgba(255, 0, 0, 0.9);
+}
+
+.plyr__control:hover {
+  background: red !important;
+}
+
+.plyr__progress__buffer {
+  color: rgba(255, 0, 0, 0.3);
 }
 </style>
 </head>
 
 <body>
 
-<video controls autoplay>
-<source src="https://www-fontedecanais-me.58ioec50wtok71.com/movies/23/199756.mp4?username=wowserver-vods&token=C1EQAgcOWlBaW0dLUlhYXU5eR04FAAEZBAoVD0lWUgQLHBkOChwOHl0FCw8ZSVRIBg0ILAcEBAUdCR8FHx0XSVBJS1pbTlxRBgoEDw8DDxgYUV5ZW0VMWEdOExwKHw8FDDUCCFJJUl9SXk9YFg%3D%3D" type="video/mp4">
-</video>
+<div class="player-container">
+  <video id="player" playsinline controls>
+    <source src="COLE_SEU_LINK_AQUI" type="video/mp4" />
+  </video>
+</div>
+
+<script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+
+<script>
+const player = new Plyr('#player', {
+  controls: [
+    'play-large',
+    'rewind',
+    'play',
+    'fast-forward',
+    'progress',
+    'current-time',
+    'duration',
+    'mute',
+    'volume',
+    'settings',
+    'fullscreen'
+  ],
+
+  seekTime: 10,
+
+  settings: ['quality', 'speed'],
+
+  tooltips: {
+    controls: true,
+    seek: true
+  }
+});
+</script>
 
 </body>
 </html>
