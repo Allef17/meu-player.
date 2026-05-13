@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css"/>
 
 <style>
+
 :root{
   --plyr-color-main:#e50914;
 }
@@ -71,6 +72,7 @@ body{
 video{
   width:100%;
   height:100%;
+  object-fit:cover;
 }
 
 .plyr{
@@ -97,8 +99,6 @@ video{
   transition:opacity .3s ease;
 }
 
-/* BOTÕES */
-
 .plyr__control{
   color:#fff !important;
 }
@@ -122,46 +122,71 @@ video{
 
   display:flex;
   align-items:center;
-  gap:60px;
+  gap:90px;
 
   transition:opacity .3s ease;
 }
 
-.center-btn{
+/* BOTÕES 10s */
+
+.circle-btn{
   width:90px;
   height:90px;
-  border-radius:50%;
   border:none;
-
-  background:rgba(0,0,0,.5);
-
-  backdrop-filter:blur(5px);
+  background:transparent;
+  color:white;
+  cursor:pointer;
 
   display:flex;
   justify-content:center;
   align-items:center;
 
-  color:#fff;
-  font-size:32px;
+  transition:.2s;
+}
+
+.circle-btn:hover{
+  transform:scale(1.08);
+}
+
+.icon-wrapper{
+  position:relative;
+  font-size:65px;
+  line-height:1;
+  color:white;
+}
+
+.icon-wrapper span{
+  position:absolute;
+  top:52%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:26px;
+  font-weight:bold;
+}
+
+/* PLAY CENTRAL */
+
+.play-circle-btn{
+  width:110px;
+  height:110px;
+
+  border:none;
+  background:transparent;
+
+  color:white;
+  font-size:95px;
 
   cursor:pointer;
 
   transition:.2s;
 }
 
-.center-btn:hover{
-  background:#e50914;
-  transform:scale(1.1);
+.play-circle-btn:hover{
+  transform:scale(1.08);
+  color:#e50914;
 }
 
-.play-btn{
-  width:110px;
-  height:110px;
-  background:#e50914;
-  font-size:40px;
-}
-
-/* ESCONDER CONTROLES */
+/* ESCONDER UI */
 
 .hide-ui .center-controls,
 .hide-ui .top-bar,
@@ -175,19 +200,24 @@ video{
 @media(max-width:768px){
 
   .center-controls{
-    gap:30px;
+    gap:45px;
   }
 
-  .center-btn{
+  .circle-btn{
     width:65px;
     height:65px;
-    font-size:22px;
   }
 
-  .play-btn{
-    width:85px;
-    height:85px;
-    font-size:30px;
+  .icon-wrapper{
+    font-size:48px;
+  }
+
+  .icon-wrapper span{
+    font-size:18px;
+  }
+
+  .play-circle-btn{
+    font-size:70px;
   }
 
   .logo{
@@ -195,6 +225,7 @@ video{
   }
 
 }
+
 </style>
 </head>
 
@@ -214,16 +245,25 @@ video{
 
   <div class="center-controls" id="centerControls">
 
-    <button class="center-btn" id="rewindBtn">
-      ⏪
+    <!-- VOLTAR -->
+    <button class="circle-btn" id="rewindBtn">
+      <div class="icon-wrapper">
+        ↺
+        <span>10</span>
+      </div>
     </button>
 
-    <button class="center-btn play-btn" id="playBtn">
+    <!-- PLAY -->
+    <button class="play-circle-btn" id="playBtn">
       ▶
     </button>
 
-    <button class="center-btn" id="forwardBtn">
-      ⏩
+    <!-- AVANÇAR -->
+    <button class="circle-btn" id="forwardBtn">
+      <div class="icon-wrapper">
+        ↻
+        <span>10</span>
+      </div>
     </button>
 
   </div>
@@ -263,7 +303,7 @@ const forwardBtn = document.getElementById('forwardBtn');
 
 let hideTimeout;
 
-/* PLAY / PAUSE */
+/* PLAY */
 
 playBtn.addEventListener('click',()=>{
 
@@ -272,7 +312,7 @@ playBtn.addEventListener('click',()=>{
     playBtn.innerHTML = '▶';
   }else{
     player.play();
-    playBtn.innerHTML = '⏸';
+    playBtn.innerHTML = '❚❚';
   }
 
 });
@@ -321,11 +361,11 @@ document.addEventListener('click',showUI);
 
 showUI();
 
-/* ATUALIZAR BOTÃO */
+/* EVENTOS PLAYER */
 
 player.on('play',()=>{
 
-  playBtn.innerHTML = '⏸';
+  playBtn.innerHTML = '❚❚';
   showUI();
 
 });
